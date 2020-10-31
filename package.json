@@ -3,6 +3,7 @@
 	"displayName": "Split Ligatures",
 	"description": "Split ligatures at cursor position",
 	"publisher": "ybeltukov",
+	"repository": "github:ybeltukov/vscode-split-ligatures",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.50.0"
