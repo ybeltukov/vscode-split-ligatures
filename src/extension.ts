@@ -25,6 +25,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(disposable);
 
+	let before = 1;
+	let after = 1;
+
   
 	vscode.window.onDidChangeTextEditorSelection((event) => {
 		disableLigatures(event);
@@ -34,9 +37,17 @@ export function activate(context: vscode.ExtensionContext) {
 		const editor = event.textEditor;
 		const ranges: vscode.Range[] = [];
 		for (const selection of event.selections) {
-			ranges.push(new vscode.Range(selection.active, selection.active));
-			if (!selection.isEmpty) {
-				ranges.push(new vscode.Range(selection.anchor, selection.anchor));
+			for (let i = -before; i <= after; i++) {
+				let p = selection.active;
+				if (p.character + i >= 0) {
+					ranges.push(new vscode.Range(p.translate(0, i), p.translate(0, i)));
+				}
+				if (!selection.isEmpty) {
+					let p = selection.anchor;
+					if (p.character + i >= 0) {
+						ranges.push(new vscode.Range(p.translate(0, i), p.translate(0, i)));
+					}
+				}
 			}
 		}
 		editor.setDecorations(decoration, ranges);
