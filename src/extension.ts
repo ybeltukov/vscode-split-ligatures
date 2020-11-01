@@ -25,19 +25,26 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(disposable);
 
-	let before = 1;
-	let after = 1;
+	let config = readConfiguration();
 
-  
+	vscode.workspace.onDidChangeConfiguration(
+		(event) => {
+			config = readConfiguration();
+		});	
+
 	vscode.window.onDidChangeTextEditorSelection((event) => {
 		disableLigatures(event);
 	});
+
+	function readConfiguration() {
+		return  vscode.workspace.getConfiguration().get('split-ligatures') as any;
+	}	
   
 	function disableLigatures(event: vscode.TextEditorSelectionChangeEvent) {
 		const editor = event.textEditor;
 		const ranges: vscode.Range[] = [];
 		for (const selection of event.selections) {
-			for (let i = -before; i <= after; i++) {
+			for (let i = -config.before; i <= config.after; i++) {
 				let p = selection.active;
 				if (p.character + i >= 0) {
 					ranges.push(new vscode.Range(p.translate(0, i), p.translate(0, i)));
