@@ -4,7 +4,7 @@
 	"description": "Split ligatures at cursor position",
 	"publisher": "ybeltukov",
 	"repository": "github:ybeltukov/vscode-split-ligatures",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"engines": {
 		"vscode": "^1.50.0"
 	},
@@ -35,7 +35,17 @@
                     "description": "Number of symbols after the cursor to split ligatures",
                     "type": "number",
                     "default": 1
-                }
+                },
+                "split-ligatures.line": {
+                    "description": "Disable ligatures in current line",
+                    "type": "boolean",
+                    "default": false
+				},
+                "split-ligatures.selection": {
+                    "description": "Disable ligatures in selection line",
+                    "type": "boolean",
+                    "default": false
+                }				
             }
         }
 	},
