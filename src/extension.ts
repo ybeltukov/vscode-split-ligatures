@@ -17,12 +17,15 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// console.log('Congratulations, your extension "split-ligatures" is now active!');
 
-	let disposable = vscode.commands.registerCommand('split-ligatures.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Split Ligatures!');
-		vscode.workspace.getConfiguration("split-ligatures").update("line", !config.line, true);
+	let disposable = vscode.commands.registerCommand('split-ligatures.toggle-ligatures', () => {
+		//vscode.workspace.getConfiguration("split-ligatures").update("line", !config.line, true);
+		let editor = vscode.window.activeTextEditor;
+		if (! editor) {
+			return;
+		}
+		let config = vscode.workspace.getConfiguration("editor", {languageId: editor.document.languageId});
+		let currentState = config.get("fontLigatures") as boolean;
+		config.update("fontLigatures", !currentState, true);
 	});
 
 	context.subscriptions.push(disposable);

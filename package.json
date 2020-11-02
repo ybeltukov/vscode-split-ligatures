@@ -18,8 +18,8 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "split-ligatures.helloWorld",
-				"title": "Hello World"
+				"command": "split-ligatures.toggle-ligatures",
+				"title": "Enable/diable font ligatures globally"
 			}
 		],
         "configuration": {
